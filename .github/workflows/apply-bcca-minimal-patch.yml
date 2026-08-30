@@ -1,0 +1,32 @@
+name: Apply BCCA minimal preview patch
+
+on:
+  push:
+    branches:
+      - fix/2027-bcca-schooling
+    paths:
+      - '.github/workflows/apply-bcca-minimal-patch.yml'
+
+permissions:
+  contents: write
+
+jobs:
+  patch:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          ref: fix/2027-bcca-schooling
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+      - name: Patch existing production design in place
+        run: python tools/patch_bcca_2027.py
+      - name: Commit patched HTML
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add index.html
+          git diff --cached --quiet && exit 0
+          git commit -m "Update BCCA 2027 copy and search metadata [skip ci]"
+          git push origin HEAD:fix/2027-bcca-schooling
