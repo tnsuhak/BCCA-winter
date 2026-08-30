@@ -308,7 +308,7 @@ td b{color:var(--navy);}
   font-family:'Gowun Batang',serif;font-size:clamp(20px,2.6vw,26px);color:var(--navy);margin-bottom:10px;
 }
 .channel-card > p{color:var(--muted);font-size:15px;font-weight:300;margin-bottom:30px;}
-.channels{display:grid;grid-template-columns:repeat(3,1fr);gap:16px;}
+.channels{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:16px;}
 .ch{
   display:flex;flex-direction:column;align-items:center;justify-content:center;gap:7px;
   border-radius:12px;padding:30px 16px;transition:.25s;min-height:158px;
@@ -318,9 +318,10 @@ td b{color:var(--navy);}
 .ch b{font-size:17px;font-weight:700;letter-spacing:-.01em;}
 .ch span{font-size:13.5px;opacity:.78;font-weight:300;}
 .ch-kakao{background:#fae100;color:#3c1e1e;}
+.ch-phone{background:#fff;color:var(--navy);border:1px solid #d8c98e;}
 .ch-cafe{background:#03c75a;color:#fff;}
 .ch-home{background:var(--navy);color:#fff;}
-.ch-home span,.ch-cafe span{opacity:.85;}
+.ch-home span,.ch-cafe span,.ch-phone span{opacity:.85;}
 
 .contact-card{
   background:var(--navy-deep);color:#fff;border-radius:18px;padding:52px 40px;margin-top:34px;text-align:center;
@@ -362,7 +363,8 @@ footer b{color:#c3d3e0;font-weight:500;}
   .burger{display:flex;}
   .ledger{grid-template-columns:repeat(2,1fr);}
   .ledger div{border-bottom:1px solid rgba(255,255,255,.12);}
-  .grid3,.grid2,.channels{grid-template-columns:1fr;}
+  .grid3,.grid2{grid-template-columns:1fr;}
+  .channels{grid-template-columns:repeat(2,minmax(0,1fr));gap:12px;}
   .channel-card{padding:30px 20px;}
   .contact-card{padding:36px 22px;}
   .ch{min-height:0;padding:22px 16px;flex-direction:row;gap:10px;flex-wrap:wrap;}
@@ -808,6 +810,9 @@ footer b{color:#c3d3e0;font-weight:500;}
       <div class="channels">
         <a class="ch ch-kakao" href="https://open.kakao.com/me/tnsuhak" target="_blank" rel="noopener">
           <span class="ic">💬</span><b>카톡 상담</b><span>1:1 실시간 문의</span>
+        </a>
+        <a class="ch ch-phone" href="tel:01051500105">
+          <span class="ic">☎</span><b>전화상담</b><span>010-5150-0105</span>
         </a>
         <a class="ch ch-cafe" href="https://cafe.naver.com/tnsuhak" target="_blank" rel="noopener">
           <span class="ic">N</span><b>네이버 유학카페</b><span>회원 43,000명</span>
