@@ -1,0 +1,53 @@
+name: Apply Canada Kakao room card
+
+on:
+  push:
+    branches:
+      - feat/canada-kakao-info-room
+    paths:
+      - tools/add_canada_kakao_room.py
+      - .github/workflows/apply-canada-kakao-room.yml
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+jobs:
+  patch:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          ref: feat/canada-kakao-info-room
+          fetch-depth: 0
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.x'
+      - name: Patch consultation cards
+        run: python tools/add_canada_kakao_room.py
+      - name: Validate and commit
+        run: |
+          python - <<'PY'
+          from pathlib import Path
+          s = Path('index.html').read_text(encoding='utf-8')
+          required = [
+              'https://open.kakao.com/o/gotTB6re',
+              '카카오 캐나다 유학정보방',
+              '약 1,300명',
+              '네이버 유학카페',
+              'TNS유학 홈페이지',
+          ]
+          missing = [x for x in required if x not in s]
+          if missing:
+              raise SystemExit(f'Missing required content: {missing}')
+          print('Validation passed.')
+          PY
+          if git diff --quiet; then
+            echo "No site changes to commit."
+            exit 0
+          fi
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add index.html
+          git commit -m "Add Canada Kakao study info room card"
+          git push origin HEAD:feat/canada-kakao-info-room
