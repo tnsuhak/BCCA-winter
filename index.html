@@ -12,8 +12,8 @@
 <meta property="og:url" content="https://bcca-winter.netlify.app/">
 <meta property="og:site_name" content="TNS유학">
 <meta property="og:locale" content="ko_KR">
-<meta property="og:image" content="https://bcca-winter.netlify.app/og.jpg">
-<meta property="og:image:secure_url" content="https://bcca-winter.netlify.app/og.jpg">
+<meta property="og:image" content="https://deploy-preview-3--bcca-winter.netlify.app/og-bcca-2027.jpg">
+<meta property="og:image:secure_url" content="https://deploy-preview-3--bcca-winter.netlify.app/og-bcca-2027.jpg">
 <meta property="og:image:type" content="image/jpeg">
 <meta property="og:image:width" content="1200">
 <meta property="og:image:height" content="630">
@@ -21,7 +21,7 @@
 <meta name="twitter:card" content="summary_large_image">
 <meta name="twitter:title" content="2027 캐나다 밴쿠버 겨울 스쿨링 캠프 (BCCA)">
 <meta name="twitter:description" content="BCCA 정규수업 4주 + 미서부 4박5일. 초5~고1 대상 5주 캐나다 겨울방학 스쿨링.">
-<meta name="twitter:image" content="https://bcca-winter.netlify.app/og.jpg">
+<meta name="twitter:image" content="https://deploy-preview-3--bcca-winter.netlify.app/og-bcca-2027.jpg">
 <link rel="canonical" href="https://bcca-winter.netlify.app/">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -396,6 +396,18 @@ footer b{color:#c3d3e0;font-weight:500;}
   *{animation:none!important;transition:none!important;}
   html{scroll-behavior:auto;}
   .reveal{opacity:1;transform:none;}
+}
+
+/* Canada Kakao information room card */
+.channels{grid-template-columns:repeat(6,minmax(0,1fr));}
+.channels > .ch:nth-child(-n+2){grid-column:span 3;}
+.channels > .ch:nth-child(n+3){grid-column:span 2;}
+.ch-canada-room{background:#C94A3F;color:#fff;}
+.ch-canada-room span{opacity:.82;}
+@media(max-width:760px){
+  .channels{grid-template-columns:repeat(2,minmax(0,1fr));gap:12px;}
+  .channels > .ch{grid-column:auto;}
+  .channels > .ch:nth-child(5){grid-column:1/-1;}
 }
 </style>
 
@@ -816,6 +828,9 @@ footer b{color:#c3d3e0;font-weight:500;}
         </a>
         <a class="ch ch-cafe" href="https://cafe.naver.com/tnsuhak" target="_blank" rel="noopener">
           <span class="ic">N</span><b>네이버 유학카페</b><span>회원 43,000명</span>
+        </a>
+        <a class="ch ch-canada-room" href="https://open.kakao.com/o/gotTB6re" target="_blank" rel="noopener">
+          <span class="ic">💬</span><b>카카오 캐나다 유학정보방</b><span>약 1,300명</span>
         </a>
         <a class="ch ch-home" href="https://tnsuhak.com/" target="_blank" rel="noopener">
           <span class="ic">🏠</span><b>TNS유학 홈페이지</b><span>전체 프로그램 보기</span>
