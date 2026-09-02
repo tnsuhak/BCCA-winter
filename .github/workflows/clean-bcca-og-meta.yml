@@ -1,0 +1,64 @@
+name: Clean BCCA OG metadata
+
+on:
+  push:
+    branches:
+      - feat/canada-kakao-info-room
+    paths:
+      - .github/workflows/clean-bcca-og-meta.yml
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+jobs:
+  clean:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          ref: feat/canada-kakao-info-room
+          fetch-depth: 0
+      - name: Remove old duplicate OG fields
+        run: |
+          python - <<'PY'
+          from pathlib import Path
+          p = Path('index.html')
+          s = p.read_text(encoding='utf-8')
+          old_lines = [
+              '<meta property="og:image:secure_url" content="https://bcca-winter.netlify.app/og.jpg">\n',
+              '<meta property="og:image:type" content="image/jpeg">\n',
+              '<meta property="og:image:width" content="1200">\n',
+              '<meta property="og:image:height" content="630">\n',
+          ]
+          # Keep the newly inserted type/width/height block and remove only the later old duplicate block.
+          marker = '<meta property="og:image:height" content="630">\n'
+          first = s.find(marker)
+          if first == -1:
+              raise SystemExit('new OG marker missing')
+          tail_start = first + len(marker)
+          head, tail = s[:tail_start], s[tail_start:]
+          tail = tail.replace(old_lines[0], '', 1)
+          tail = tail.replace(old_lines[1], '', 1)
+          tail = tail.replace(old_lines[2], '', 1)
+          tail = tail.replace(old_lines[3], '', 1)
+          s = head + tail
+          assert s.count('property="og:image:secure_url"') == 1
+          assert s.count('property="og:image:type"') == 1
+          assert s.count('property="og:image:width"') == 1
+          assert s.count('property="og:image:height"') == 1
+          assert 'https://deploy-preview-3--bcca-winter.netlify.app/og-bcca-2027.jpg' in s
+          p.write_text(s, encoding='utf-8')
+          print('OG metadata cleaned')
+          PY
+      - name: Commit clean metadata
+        run: |
+          if git diff --quiet; then
+            echo "No changes"
+            exit 0
+          fi
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add index.html
+          git commit -m "Keep one canonical BCCA OG image block"
+          git push origin HEAD:feat/canada-kakao-info-room
