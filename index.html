@@ -397,6 +397,18 @@ footer b{color:#c3d3e0;font-weight:500;}
   html{scroll-behavior:auto;}
   .reveal{opacity:1;transform:none;}
 }
+
+/* Canada Kakao information room card */
+.channels{grid-template-columns:repeat(6,minmax(0,1fr));}
+.channels > .ch:nth-child(-n+2){grid-column:span 3;}
+.channels > .ch:nth-child(n+3){grid-column:span 2;}
+.ch-canada-room{background:#fee500;color:#191919;}
+.ch-canada-room span{opacity:.82;}
+@media(max-width:760px){
+  .channels{grid-template-columns:repeat(2,minmax(0,1fr));gap:12px;}
+  .channels > .ch{grid-column:auto;}
+  .channels > .ch:nth-child(5){grid-column:1/-1;}
+}
 </style>
 
 <script type="application/ld+json">
@@ -816,6 +828,9 @@ footer b{color:#c3d3e0;font-weight:500;}
         </a>
         <a class="ch ch-cafe" href="https://cafe.naver.com/tnsuhak" target="_blank" rel="noopener">
           <span class="ic">N</span><b>네이버 유학카페</b><span>회원 43,000명</span>
+        </a>
+        <a class="ch ch-canada-room" href="https://open.kakao.com/o/gotTB6re" target="_blank" rel="noopener">
+          <span class="ic">💬</span><b>카카오 캐나다 유학정보방</b><span>약 1,300명</span>
         </a>
         <a class="ch ch-home" href="https://tnsuhak.com/" target="_blank" rel="noopener">
           <span class="ic">🏠</span><b>TNS유학 홈페이지</b><span>전체 프로그램 보기</span>
