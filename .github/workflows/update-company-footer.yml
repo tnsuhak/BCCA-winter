@@ -1,0 +1,44 @@
+name: Update BCCA company footer
+on:
+  push:
+    branches: [feat/canada-kakao-info-room]
+    paths:
+      - tools/update_company_footer.py
+      - .github/workflows/update-company-footer.yml
+permissions:
+  contents: write
+jobs:
+  patch:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          ref: feat/canada-kakao-info-room
+          fetch-depth: 0
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.x'
+      - name: Update corporate footer
+        run: python tools/update_company_footer.py
+      - name: Validate and commit
+        run: |
+          python - <<'PY'
+          from pathlib import Path
+          s = Path('index.html').read_text(encoding='utf-8')
+          assert 'TNS유학 · ㈜티앤에스월드와이드' in s
+          assert '서울시 강남구 테헤란로5길 7 KG타워 B1 (06134)' in s
+          assert '부산 부산진구 중앙대로 694 쥬디스태화 9층 37호 (47295)' in s
+          assert '강호진 부장(말랑이)' not in s
+          assert '카카오톡 ID : stardancer' not in s
+          assert 'khj@tnsuhak.com' not in s
+          print('Validation passed.')
+          PY
+          if git diff --quiet -- index.html; then
+            echo "No site changes"
+            exit 0
+          fi
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add index.html
+          git commit -m "Align BCCA footer with TNS corporate contact standard"
+          git push origin HEAD:feat/canada-kakao-info-room
