@@ -1,0 +1,62 @@
+name: Apply BCCA recruitment closure notice
+
+on:
+  push:
+    branches:
+      - feat/canada-kakao-info-room
+    paths:
+      - tools/apply_recruitment_closed_notice.py
+      - .github/workflows/apply-recruitment-closed-notice.yml
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+jobs:
+  patch:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          ref: feat/canada-kakao-info-room
+          fetch-depth: 0
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.x'
+      - name: Apply closure notice
+        run: python tools/apply_recruitment_closed_notice.py
+      - name: Remove interrupted OG thumbnail file
+        run: |
+          if [ -f og-bcca-2027.jpg ]; then
+            git rm og-bcca-2027.jpg
+          fi
+      - name: Validate and commit
+        run: |
+          python - <<'PY'
+          from pathlib import Path
+          s = Path('index.html').read_text(encoding='utf-8')
+          required = [
+              'BCCA 스쿨링 캠프 14명 모집이 마감되었습니다',
+              'Archbishop Carney Secondary School · 중1~고1',
+              '추가 자리·대체 프로그램 문의',
+              'https://schema.org/SoldOut',
+              'https://bcca-winter.netlify.app/og.jpg',
+              '카카오 캐나다 유학정보방',
+          ]
+          missing = [x for x in required if x not in s]
+          if missing:
+              raise SystemExit(f'Missing required content: {missing}')
+          if 'deploy-preview-3--bcca-winter.netlify.app/og-bcca-2027.jpg' in s:
+              raise SystemExit('Interrupted OG thumbnail URL remains')
+          print('Validation passed.')
+          PY
+          if git diff --quiet; then
+            echo "No site changes to commit."
+            exit 0
+          fi
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add index.html
+          git add -u
+          git commit -m "Add BCCA recruitment closure notice"
+          git push origin HEAD:feat/canada-kakao-info-room
