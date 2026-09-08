@@ -1,0 +1,39 @@
+name: Replace BCCA contact cards
+on:
+  push:
+    branches: [feat/canada-kakao-info-room]
+    paths:
+      - tools/replace_contact_cards.py
+      - .github/workflows/replace-contact-cards.yml
+permissions:
+  contents: write
+jobs:
+  patch:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          ref: feat/canada-kakao-info-room
+          fetch-depth: 0
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.x'
+      - run: python tools/replace_contact_cards.py
+      - name: Validate and commit
+        run: |
+          python - <<'PY'
+          from pathlib import Path
+          s=Path('index.html').read_text(encoding='utf-8')
+          assert 'class="contact-channel-primary"' in s
+          assert 'class="contact-channel-secondary"' in s
+          assert '카카오 캐나다 유학정보방' in s
+          assert 'channel-canada-room' in s
+          assert '.contact-channel-secondary{display:grid;grid-template-columns:repeat(3,minmax(0,1fr))' in s
+          print('Validation passed')
+          PY
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add index.html
+          if git diff --cached --quiet; then exit 0; fi
+          git commit -m "Match BCCA contact cards to Golden Hills 2+3 layout"
+          git push origin HEAD:feat/canada-kakao-info-room
