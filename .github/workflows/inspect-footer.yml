@@ -1,0 +1,20 @@
+name: Inspect BCCA footer
+on:
+  push:
+    branches: [feat/canada-kakao-info-room]
+    paths:
+      - tools/inspect_footer.py
+      - .github/workflows/inspect-footer.yml
+permissions:
+  contents: read
+jobs:
+  inspect:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          ref: feat/canada-kakao-info-room
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.x'
+      - run: python tools/inspect_footer.py
