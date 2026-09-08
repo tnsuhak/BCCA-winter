@@ -1,0 +1,47 @@
+name: Move BCCA recruitment notice to top
+
+on:
+  push:
+    branches:
+      - feat/canada-kakao-info-room
+    paths:
+      - tools/move_recruitment_notice_top.py
+      - .github/workflows/move-recruitment-notice-top.yml
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+jobs:
+  patch:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          ref: feat/canada-kakao-info-room
+          fetch-depth: 0
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.x'
+      - name: Move notice
+        run: python tools/move_recruitment_notice_top.py
+      - name: Validate and commit
+        run: |
+          python - <<'PY'
+          from pathlib import Path
+          s = Path('index.html').read_text(encoding='utf-8')
+          notice = s.find('<section class="recruitment-notice-wrap"')
+          hero = s.find('<h1>한국의 겨울방학은')
+          assert notice != -1 and hero != -1 and notice < hero
+          assert s.count('BCCA 스쿨링 캠프 14명 모집이 마감되었습니다') == 1
+          print('Validation passed.')
+          PY
+          if git diff --quiet; then
+            echo "No site changes to commit."
+            exit 0
+          fi
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add index.html
+          git commit -m "Move BCCA recruitment closure notice to top"
+          git push origin HEAD:feat/canada-kakao-info-room
