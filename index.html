@@ -334,16 +334,36 @@ td b{color:var(--navy);}
 .contact-card .lines{font-size:17px;font-weight:500;line-height:2.1;}
 .contact-card .lines a{border-bottom:1px solid rgba(255,255,255,.2);padding-bottom:1px;}
 .contact-card .lines a:hover{border-bottom-color:var(--gold);color:var(--gold-light);}
+.company-offices{display:grid;grid-template-columns:1fr 1fr;gap:14px;max-width:900px;margin:24px auto 0;text-align:left;}
+.company-offices .office{border:1px solid rgba(255,255,255,.15);border-radius:12px;padding:18px 20px;background:rgba(255,255,255,.035);}
+.company-offices .office b{display:block;color:#fff;font-size:15px;margin-bottom:7px;}
+.company-offices .office span{display:block;color:#b9cbdb;font-size:13.5px;font-weight:300;line-height:1.6;margin-bottom:7px;}
+.company-offices .office a{display:inline-block;color:var(--gold-light);font-size:14.5px;font-weight:600;border-bottom:1px solid rgba(255,255,255,.2);padding-bottom:1px;}
+.company-offices .office a:hover{border-bottom-color:var(--gold);}
+@media(max-width:760px){
+  .contact-card h3{font-size:22px;line-height:1.35;letter-spacing:.01em;}
+  .company-offices{grid-template-columns:1fr;gap:10px;margin-top:18px;}
+  .company-offices .office{padding:15px 16px;text-align:left;}
+  .company-offices .office b{font-size:14px;}
+  .company-offices .office span{font-size:12.8px;}
+  .company-offices .office a{font-size:13.5px;}
+}
 .tags{display:flex;flex-wrap:wrap;justify-content:center;gap:9px;margin:30px 0 0;}
 .tags span{
-  border:1px solid rgba(255,255,255,.22);border-radius:999px;padding:8px 16px;
-  font-size:13.5px;color:#c2d3e2;font-weight:300;
+  border:1px solid rgba(255,255,255,.22);border-radius:999px;padding:7px 13px;
+  font-size:11.5px;color:#c2d3e2;font-weight:300;
 }
 .disclaimer{
-  margin-top:32px;padding-top:26px;border-top:1px solid rgba(255,255,255,.14);
-  font-size:13.5px;color:#93a8bb;font-weight:300;line-height:1.9;
+  margin-top:28px;padding-top:22px;border-top:1px solid rgba(255,255,255,.14);
+  font-size:11.8px;color:#93a8bb;font-weight:300;line-height:1.7;
 }
 .note{margin-top:26px;font-size:14.5px;color:#6b7787;font-weight:300;text-align:center;}
+@media(max-width:760px){
+  .tags{gap:7px;margin-top:24px;}
+  .tags span{font-size:10.5px;padding:6px 11px;}
+  .disclaimer{font-size:10.8px;line-height:1.65;margin-top:24px;padding-top:20px;}
+}
+
 
 footer{background:var(--navy-deep);color:#7f93a6;font-size:13px;padding:38px 0;}
 footer .wrap{display:flex;justify-content:space-between;gap:16px;flex-wrap:wrap;}
@@ -397,10 +417,80 @@ footer b{color:#c3d3e0;font-weight:500;}
   html{scroll-behavior:auto;}
   .reveal{opacity:1;transform:none;}
 }
+
+/* TNS consultation cards — Golden Hills 2+3 layout */
+.contact-channel-grid{display:grid;gap:16px;margin-top:22px;}
+.contact-channel-primary{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:16px;}
+.contact-channel-secondary{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:16px;}
+.contact-channel-card{min-width:0;display:flex;flex-direction:column;align-items:center;justify-content:center;text-align:center;border:1px solid #d7dee5;border-radius:16px;padding:18px 14px;box-shadow:0 5px 18px rgba(14,42,71,.06);transition:transform .18s ease,box-shadow .18s ease,border-color .18s ease;}
+.contact-channel-primary .contact-channel-card{min-height:154px;}
+.contact-channel-secondary .contact-channel-card{min-height:126px;}
+.contact-channel-card:hover{transform:translateY(-3px);box-shadow:0 10px 26px rgba(14,42,71,.13);}
+.contact-channel-card .channel-icon{font-size:30px;line-height:1;margin-bottom:12px;}
+.contact-channel-secondary .channel-icon{font-size:26px;margin-bottom:10px;}
+.contact-channel-card strong{display:block;font-size:19px;line-height:1.35;font-weight:800;letter-spacing:-.25px;word-break:keep-all;}
+.contact-channel-card small{display:block;margin-top:8px;font-size:13px;line-height:1.45;font-weight:400;word-break:keep-all;}
+.channel-kakao{background:#fee500;border-color:#efd800;color:#251d00;}
+.channel-kakao small{color:#695b2e;}
+.channel-phone{background:#edf3f9;border-color:#c8d3df;color:var(--navy);}
+.channel-phone small{color:#657185;}
+.channel-naver{background:#03c75a;border-color:#02b351;color:#fff;}
+.channel-naver small{color:#dcf8e7;}
+.channel-canada-room{background:#C94A3F;border-color:#b83e35;color:#fff;}
+.channel-canada-room small{color:rgba(255,255,255,.82);}
+.channel-home{background:var(--navy);border-color:var(--navy);color:#fff;}
+.channel-home strong{color:#f0d58b;}
+.channel-home small{color:#c3ccda;}
+.channel-n{width:38px;height:38px;display:flex;align-items:center;justify-content:center;border:2px dotted currentColor;font-family:Arial,sans-serif;font-size:22px!important;font-weight:900;}
+@media(max-width:760px){
+  .contact-channel-grid{gap:10px;margin-top:16px;}
+  .contact-channel-primary,.contact-channel-secondary{gap:10px;}
+  .contact-channel-primary .contact-channel-card{min-height:112px;padding:13px 8px;}
+  .contact-channel-secondary .contact-channel-card{min-height:96px;padding:11px 6px;}
+  .contact-channel-card .channel-icon{font-size:24px;margin-bottom:8px;}
+  .contact-channel-secondary .channel-icon{font-size:21px;margin-bottom:7px;}
+  .contact-channel-card strong{font-size:15px;}
+  .contact-channel-secondary .contact-channel-card strong{font-size:12.5px;line-height:1.35;}
+  .contact-channel-card small{font-size:11px;margin-top:5px;}
+  .contact-channel-secondary .contact-channel-card small{font-size:9.8px;margin-top:4px;}
+  .channel-n{width:27px;height:27px;font-size:15px!important;}
+}
+@media(max-width:390px){
+  .contact-channel-primary,.contact-channel-secondary{gap:8px;}
+  .contact-channel-secondary .contact-channel-card{padding-left:5px;padding-right:5px;}
+  .contact-channel-secondary .contact-channel-card strong{font-size:12px;}
+  .contact-channel-secondary .contact-channel-card small{font-size:9.6px;}
+}
+
+/* 2026-09-08 BCCA recruitment closure notice */
+.recruitment-notice-wrap{padding:22px 0 16px;}
+.recruitment-notice{
+  background:#fff;border:1px solid rgba(201,74,63,.24);border-left:4px solid #C94A3F;
+  border-radius:14px;padding:24px 26px;box-shadow:0 8px 24px rgba(14,42,71,.06);
+}
+.rn-top{margin-bottom:10px;}
+.rn-badge{display:inline-flex;align-items:center;background:#C94A3F;color:#fff;border-radius:999px;padding:6px 10px;font-size:12px;font-weight:700;}
+.recruitment-notice h2{font-family:'Gowun Batang',serif;color:var(--navy);font-size:clamp(21px,2.4vw,27px);line-height:1.35;margin:0 0 8px;}
+.recruitment-notice > p{color:var(--muted);font-size:14.5px;line-height:1.65;margin:0;}
+.rn-alt{margin-top:16px;padding-top:16px;border-top:1px solid #ece6d9;}
+.rn-alt strong{display:block;color:var(--navy);font-size:16px;margin-bottom:4px;}
+.rn-alt .rn-school{display:block;color:#B94A40;font-weight:600;font-size:13.5px;line-height:1.5;margin-bottom:6px;}
+.rn-alt p{color:var(--muted);font-size:13.8px;line-height:1.6;margin:0 0 12px;}
+.rn-alt a{display:inline-flex;align-items:center;justify-content:center;background:var(--navy);color:#fff;border-radius:9px;padding:10px 14px;font-size:13.5px;font-weight:700;}
+@media(max-width:760px){
+  .recruitment-notice-wrap{padding:14px 0 8px;}
+  .recruitment-notice{padding:18px 16px;border-radius:12px;}
+  .recruitment-notice h2{font-size:22px;line-height:1.32;margin-bottom:7px;}
+  .recruitment-notice > p{font-size:14.5px;line-height:1.6;}
+  .rn-alt{margin-top:14px;padding-top:14px;}
+  .rn-alt strong{font-size:15.5px;}
+  .rn-alt .rn-school{font-size:13px;}
+  .rn-alt p{font-size:13.5px;line-height:1.58;}
+}
 </style>
 
 <script type="application/ld+json">
-{"@context":"https://schema.org","@graph":[{"@type":"WebPage","@id":"https://bcca-winter.netlify.app/#webpage","url":"https://bcca-winter.netlify.app/","name":"2027 캐나다 밴쿠버 겨울 스쿨링 캠프 | BCCA 정규수업 4주","description":"초5~고1 대상 2027 캐나다 겨울방학 스쿨링. BCCA 정규수업 4주와 미서부 4박5일, 홈스테이, 방과후 영어·수학을 결합한 5주 프로그램.","inLanguage":"ko-KR","about":{"@id":"https://bcca-winter.netlify.app/#event"}},{"@type":"EducationEvent","@id":"https://bcca-winter.netlify.app/#event","name":"2027 BCCA 겨울 스쿨링 캠프","startDate":"2027-01-13","endDate":"2027-02-13","eventStatus":"https://schema.org/EventScheduled","eventAttendanceMode":"https://schema.org/OfflineEventAttendanceMode","location":{"@type":"Place","name":"BCCA","address":{"@type":"PostalAddress","addressLocality":"Port Coquitlam","addressRegion":"BC","addressCountry":"CA"}},"organizer":{"@type":"Organization","name":"TNS유학"},"offers":{"@type":"Offer","price":"11600","priceCurrency":"CAD","availability":"https://schema.org/LimitedAvailability","url":"https://bcca-winter.netlify.app/#inquiry"}},{"@type":"FAQPage","@id":"https://bcca-winter.netlify.app/#faq-schema","mainEntity":[{"@type":"Question","name":"정규수업과 ESL 비중은 어떻게 되나요?","acceptedAnswer":{"@type":"Answer","text":"일반적으로 정규수업 70~80%에 ESL 20~30%로 운영합니다. 고등학생(G9 이상)은 영어 수준과 학교 상황에 따라 정규 60% + ESL 40%로 조정될 수 있습니다. 실제 비율은 학생의 영어 수준과 학교 재량으로 결정됩니다."}},{"@type":"Question","name":"현재 학년 그대로 배정되나요?","acceptedAnswer":{"@type":"Answer","text":"반드시 그렇지는 않습니다. 학교가 학생의 영어 수준과 당시 학급 상황을 함께 고려하기 때문에 현재 학년보다 한두 학년 위 또는 아래로 배정될 수 있습니다."}},{"@type":"Question","name":"초등학교 5학년도 참가할 수 있나요?","acceptedAnswer":{"@type":"Answer","text":"가능하지만 정원이 가장 제한적입니다. 부모님과 떨어져 해외 캠프나 단독 프로그램에 참여한 경험이 있고 스스로 생활이 가능한 학생 위주로 등록을 받습니다. 초등 4학년은 개별 문의로 참가 여부를 확인합니다."}}]}]}
+{"@context":"https://schema.org","@graph":[{"@type":"WebPage","@id":"https://bcca-winter.netlify.app/#webpage","url":"https://bcca-winter.netlify.app/","name":"2027 캐나다 밴쿠버 겨울 스쿨링 캠프 | BCCA 정규수업 4주","description":"초5~고1 대상 2027 캐나다 겨울방학 스쿨링. BCCA 정규수업 4주와 미서부 4박5일, 홈스테이, 방과후 영어·수학을 결합한 5주 프로그램.","inLanguage":"ko-KR","about":{"@id":"https://bcca-winter.netlify.app/#event"}},{"@type":"EducationEvent","@id":"https://bcca-winter.netlify.app/#event","name":"2027 BCCA 겨울 스쿨링 캠프","startDate":"2027-01-13","endDate":"2027-02-13","eventStatus":"https://schema.org/EventScheduled","eventAttendanceMode":"https://schema.org/OfflineEventAttendanceMode","location":{"@type":"Place","name":"BCCA","address":{"@type":"PostalAddress","addressLocality":"Port Coquitlam","addressRegion":"BC","addressCountry":"CA"}},"organizer":{"@type":"Organization","name":"TNS유학"},"offers":{"@type":"Offer","price":"11600","priceCurrency":"CAD","availability":"https://schema.org/SoldOut","url":"https://bcca-winter.netlify.app/#inquiry"}},{"@type":"FAQPage","@id":"https://bcca-winter.netlify.app/#faq-schema","mainEntity":[{"@type":"Question","name":"정규수업과 ESL 비중은 어떻게 되나요?","acceptedAnswer":{"@type":"Answer","text":"일반적으로 정규수업 70~80%에 ESL 20~30%로 운영합니다. 고등학생(G9 이상)은 영어 수준과 학교 상황에 따라 정규 60% + ESL 40%로 조정될 수 있습니다. 실제 비율은 학생의 영어 수준과 학교 재량으로 결정됩니다."}},{"@type":"Question","name":"현재 학년 그대로 배정되나요?","acceptedAnswer":{"@type":"Answer","text":"반드시 그렇지는 않습니다. 학교가 학생의 영어 수준과 당시 학급 상황을 함께 고려하기 때문에 현재 학년보다 한두 학년 위 또는 아래로 배정될 수 있습니다."}},{"@type":"Question","name":"초등학교 5학년도 참가할 수 있나요?","acceptedAnswer":{"@type":"Answer","text":"가능하지만 정원이 가장 제한적입니다. 부모님과 떨어져 해외 캠프나 단독 프로그램에 참여한 경험이 있고 스스로 생활이 가능한 학생 위주로 등록을 받습니다. 초등 4학년은 개별 문의로 참가 여부를 확인합니다."}}]}]}
 </script>
 </head>
 <body>
@@ -431,6 +521,10 @@ footer b{color:#c3d3e0;font-weight:500;}
   </div>
 </nav>
 
+
+
+
+
 <div class="mobile-menu" id="mobileMenu">
   <a href="#information">프로그램</a>
   <a href="#school">BCCA 학교 소개</a>
@@ -453,7 +547,7 @@ footer b{color:#c3d3e0;font-weight:500;}
       미서부 4박5일로 시작해, BCCA 정규수업 4주로 이어집니다.
     </p>
     <div class="hero-cta">
-      <a href="#inquiry" class="btn btn-gold">학년별 잔여 정원 문의</a>
+      <a href="#inquiry" class="btn btn-gold">추가 자리·대체 프로그램 문의</a>
       <a href="#calendar" class="btn btn-ghost">5주 일정 보기</a>
     </div>
   </div>
@@ -470,6 +564,24 @@ footer b{color:#c3d3e0;font-weight:500;}
 <div class="deadline" id="deadline">
   잔금 납부 마감 <b>2026년 10월 31일</b> · 초등 5~6학년은 정원이 가장 먼저 마감됩니다
 </div>
+
+<section class="recruitment-notice-wrap" aria-labelledby="recruitment-notice-title">
+  <div class="container">
+    <div class="recruitment-notice">
+      <div class="rn-top"><span class="rn-badge">모집 마감</span></div>
+      <h2 id="recruitment-notice-title">BCCA 스쿨링 캠프 모집 마감</h2>
+      <p>BCCA 스쿨링 캠프 모집이 마감되었습니다.(모집 시작 후 26일만에 마감) 추가 자리가 확보되면 이 페이지에서 다시 안내드립니다.</p>
+      <div class="rn-alt">
+        <strong>대체 프로그램 준비 중</strong>
+        <span class="rn-school">Archbishop Carney Secondary School · 중1~고1</span>
+        <p>BCCA와 비슷한 비용·구성으로 학교 측 최종 협의 중이며, 마감이 빠르므로 확정 전 대기 예약을 추천 드립니다.</p>
+        <a href="#inquiry">대기 예약 문의</a>
+      </div>
+    </div>
+  </div>
+</section>
+
+
 
 <!-- ===== INFORMATION ===== -->
 <section id="information">
@@ -509,6 +621,9 @@ footer b{color:#c3d3e0;font-weight:500;}
     </div>
   </div>
 </section>
+
+
+
 
 <!-- ===== SCHOOL ===== -->
 <section id="school" class="alt">
@@ -807,28 +922,52 @@ footer b{color:#c3d3e0;font-weight:500;}
     <div class="channel-card reveal">
       <h3>자녀에게 맞는 프로그램, 함께 찾아드립니다</h3>
       <p>학년 · 영어 수준 · 예산 · 성향에 따라 맞는 프로그램이 달라집니다. 편한 채널로 문의해 주세요.</p>
-      <div class="channels">
-        <a class="ch ch-kakao" href="https://open.kakao.com/o/slehLvKi" target="_blank" rel="noopener">
-          <span class="ic">💬</span><b>카톡 상담</b><span>1:1 실시간 문의</span>
-        </a>
-        <a class="ch ch-phone" href="tel:01051500105">
-          <span class="ic">☎</span><b>전화상담</b><span>010-5150-0105</span>
-        </a>
-        <a class="ch ch-cafe" href="https://cafe.naver.com/tnsuhak" target="_blank" rel="noopener">
-          <span class="ic">N</span><b>네이버 유학카페</b><span>회원 43,000명</span>
-        </a>
-        <a class="ch ch-home" href="https://tnsuhak.com/" target="_blank" rel="noopener">
-          <span class="ic">🏠</span><b>TNS유학 홈페이지</b><span>전체 프로그램 보기</span>
-        </a>
+      <div class="contact-channel-grid" aria-label="TNS유학 상담 및 커뮤니티 채널">
+        <div class="contact-channel-primary">
+          <a href="https://open.kakao.com/o/slehLvKi" target="_blank" rel="noopener" class="contact-channel-card channel-kakao" aria-label="카카오톡 1대1 상담 열기">
+            <span class="channel-icon" aria-hidden="true">💬</span>
+            <strong>카톡 상담</strong>
+            <small>1:1 실시간 문의</small>
+          </a>
+          <a href="tel:01051500105" class="contact-channel-card channel-phone" aria-label="전화 상담 010-5150-0105">
+            <span class="channel-icon" aria-hidden="true">📞</span>
+            <strong>전화 상담</strong>
+            <small>010-5150-0105</small>
+          </a>
+        </div>
+        <div class="contact-channel-secondary">
+          <a href="https://cafe.naver.com/tnsuhak" target="_blank" rel="noopener" class="contact-channel-card channel-naver" aria-label="네이버 유학카페 열기">
+            <span class="channel-icon channel-n" aria-hidden="true">N</span>
+            <strong>네이버 유학카페</strong>
+            <small>회원 43,000명</small>
+          </a>
+          <a href="https://open.kakao.com/o/gotTB6re" target="_blank" rel="noopener" class="contact-channel-card channel-canada-room" aria-label="카카오 캐나다 유학정보방 열기">
+            <span class="channel-icon" aria-hidden="true">💬</span>
+            <strong>카카오 캐나다 유학정보방</strong>
+            <small>약 1,300명</small>
+          </a>
+          <a href="https://tnsuhak.com/" target="_blank" rel="noopener" class="contact-channel-card channel-home" aria-label="TNS유학 홈페이지 열기">
+            <span class="channel-icon" aria-hidden="true">🏠</span>
+            <strong>TNS유학 홈페이지</strong>
+            <small>전체 프로그램 보기</small>
+          </a>
+        </div>
       </div>
     </div>
 
     <div class="contact-card reveal">
-      <h3>TNS유학 · 해대쉽</h3>
-      <p class="who">강호진 부장(말랑이) · 유학 전문 경력 18년 · 네이버 유학카페 43,000명 운영</p>
-      <div class="lines">
-        <a href="tel:01051500105">010-5150-0105</a> &nbsp;|&nbsp; <a href="tel:0232881733">02-3288-1733~5</a><br>
-        카카오톡 ID : stardancer &nbsp;|&nbsp; <a href="mailto:khj@tnsuhak.com">khj@tnsuhak.com</a>
+      <h3>TNS유학 · ㈜티앤에스월드와이드</h3>
+      <div class="company-offices">
+        <div class="office">
+          <b>서울 본사</b>
+          <span>서울시 강남구 테헤란로5길 7 KG타워 B1 (06134)</span>
+          <a href="tel:0232881733">02-3288-1733~1735</a>
+        </div>
+        <div class="office">
+          <b>부산 지사</b>
+          <span>부산 부산진구 중앙대로 694 쥬디스태화 9층 37호 (47295)</span>
+          <a href="tel:01050241733">010-5024-1733</a>
+        </div>
       </div>
       <div class="tags">
         <span>#캐나다조기유학</span><span>#밴쿠버유학</span><span>#코퀴틀람유학</span>
@@ -840,18 +979,8 @@ footer b{color:#c3d3e0;font-weight:500;}
       </p>
     </div>
 
-    <p class="note">
-      상담 시 학생의 학년, 현재 영어 수준, 부모님과 떨어져 지낸 경험 여부를 알려주시면 훨씬 정확한 안내가 가능합니다.
-    </p>
   </div>
 </section>
-
-<footer>
-  <div class="wrap">
-    <span><b>TNS유학 (TNS Worldwide)</b> · 2027 BCCA 겨울 스쿨링 캠프 안내 페이지</span>
-    <span>khj@tnsuhak.com · 02-3288-1733~5</span>
-  </div>
-</footer>
 
 <div class="sticky-bar">
   <a href="tel:01051500105" class="call">전화 상담</a>
