@@ -10,26 +10,25 @@ if start == -1:
 end = html.find('</section>', start)
 if end == -1:
     raise SystemExit('ERROR: recruitment notice closing section not found')
-# The notice contains only one top-level section; include closing tag and nearby blank lines.
 end += len('</section>')
 notice = html[start:end]
 
-# Remove existing placement.
+# Remove current placement first.
 html = html[:start] + html[end:]
 
-# Put the notice immediately below the site header so it is visible before the hero.
-header_end = html.find('</header>')
-if header_end != -1:
-    insert_at = header_end + len('</header>')
+# The page header contains the navigation and hero, so place the notice immediately
+# after the navigation, before the hero content begins.
+nav_end = html.find('</nav>')
+if nav_end != -1:
+    insert_at = nav_end + len('</nav>')
 else:
     body_open = html.find('<body>')
     if body_open == -1:
-        raise SystemExit('ERROR: neither </header> nor <body> found')
+        raise SystemExit('ERROR: neither </nav> nor <body> found')
     insert_at = body_open + len('<body>')
 
 html = html[:insert_at] + '\n\n' + notice + '\n\n' + html[insert_at:]
 
-# Validate: notice must appear before hero H1.
 notice_pos = html.find(start_marker)
 hero_pos = html.find('<h1>한국의 겨울방학은')
 if notice_pos == -1 or hero_pos == -1:
@@ -40,4 +39,4 @@ if html.count('BCCA 스쿨링 캠프 14명 모집이 마감되었습니다') != 
     raise SystemExit('ERROR: recruitment notice duplicated or missing')
 
 path.write_text(html, encoding='utf-8')
-print('Moved recruitment notice directly below header, before hero.')
+print('Moved recruitment notice immediately below navigation, before hero.')
