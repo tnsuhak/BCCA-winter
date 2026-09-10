@@ -1,0 +1,42 @@
+name: Fix Carney favicon cache
+
+on:
+  push:
+    branches: [main]
+    paths:
+      - '.github/workflows/fix-favicon-live.yml'
+
+permissions:
+  contents: write
+
+jobs:
+  fix:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          ref: main
+          fetch-depth: 0
+      - name: Replace favicon URL and clean temporary file
+        shell: python
+        run: |
+          from pathlib import Path
+          old = '<link rel="icon" href="/favicon.svg" type="image/svg+xml">'
+          new = '<link rel="icon" href="/favicon-tns-v2.svg" type="image/svg+xml">\n<link rel="shortcut icon" href="/favicon-tns-v2.svg" type="image/svg+xml">'
+          for name in ['index.html', 'student-life-videos.html']:
+              p = Path(name)
+              text = p.read_text(encoding='utf-8')
+              if old not in text:
+                  raise SystemExit(f'Expected favicon tag not found in {name}')
+              p.write_text(text.replace(old, new), encoding='utf-8')
+          Path('_noop.txt').unlink(missing_ok=True)
+          Path('.github/workflows/fix-favicon-live.yml').unlink()
+      - name: Commit final favicon fix
+        shell: bash
+        run: |
+          set -euo pipefail
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add -A
+          git commit -m "Fix TNS favicon cache on live site"
+          git push origin HEAD:main
