@@ -1,0 +1,40 @@
+name: Add Carney Kakao Open Graph preview
+
+on:
+  push:
+    branches: [feat/carney-kakao-og]
+    paths:
+      - 'tools/add_kakao_og.py'
+      - '.github/workflows/add-carney-kakao-og.yml'
+
+permissions:
+  contents: write
+
+jobs:
+  update:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          ref: feat/carney-kakao-og
+          fetch-depth: 0
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.x'
+      - name: Install image tooling
+        run: python -m pip install --disable-pip-version-check pillow
+      - name: Build OG image and metadata
+        run: python tools/add_kakao_og.py
+      - name: Commit final changes and remove temporary updater
+        shell: bash
+        run: |
+          set -euo pipefail
+          rm -f tools/add_kakao_og.py .github/workflows/add-carney-kakao-og.yml
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add -A
+          if git diff --cached --quiet; then
+            exit 0
+          fi
+          git commit -m "Add Kakao link preview for Carney winter site"
+          git push origin HEAD:feat/carney-kakao-og
