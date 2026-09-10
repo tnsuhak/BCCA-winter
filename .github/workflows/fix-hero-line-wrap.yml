@@ -1,0 +1,49 @@
+name: Fix Carney hero line wrapping
+
+on:
+  push:
+    branches: [fix/carney-hero-line-wrap]
+    paths:
+      - '.github/workflows/fix-hero-line-wrap.yml'
+
+permissions:
+  contents: write
+
+jobs:
+  update:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          ref: fix/carney-hero-line-wrap
+          fetch-depth: 0
+      - name: Fix headline wrapping
+        shell: bash
+        run: |
+          python - <<'PY'
+          from pathlib import Path
+          p = Path('index.html')
+          s = p.read_text(encoding='utf-8')
+          phrase = '캐나다 학교의 정규수업을'
+          wrapped = '<span class="hero-title-primary">캐나다 학교의 정규수업을</span>'
+          if 'hero-title-primary' not in s:
+              if phrase not in s:
+                  raise SystemExit('Hero title phrase not found')
+              s = s.replace(phrase, wrapped, 1)
+          css = '''\n<style id="hero-line-wrap-fix">\n/* Keep the Korean object particle attached to 정규수업 and avoid an orphaned 을. */\n.hero-title-primary{word-break:keep-all;overflow-wrap:normal;}\n@media (min-width:521px){\n  .hero-title-primary{white-space:nowrap;letter-spacing:-0.065em;}\n}\n@media (max-width:520px){\n  .hero-title-primary{white-space:normal;word-break:keep-all;overflow-wrap:normal;}\n}\n</style>\n'''
+          if 'id="hero-line-wrap-fix"' not in s:
+              if '</head>' not in s:
+                  raise SystemExit('Closing head tag not found')
+              s = s.replace('</head>', css + '</head>', 1)
+          p.write_text(s, encoding='utf-8')
+          PY
+      - name: Commit fix and remove updater
+        shell: bash
+        run: |
+          set -euo pipefail
+          rm -f .github/workflows/fix-hero-line-wrap.yml
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add -A
+          git commit -m "Fix hero headline line wrapping"
+          git push origin HEAD:fix/carney-hero-line-wrap
