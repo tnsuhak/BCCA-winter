@@ -1,4 +1,4 @@
 User-agent: *
 Allow: /
 
-Sitemap: https://bcca-winter.netlify.app/sitemap.xml
+Sitemap: https://carney-winter.netlify.app/sitemap.xml
