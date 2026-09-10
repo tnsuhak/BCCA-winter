@@ -350,6 +350,17 @@ footer b{color:#cad6df}
   ]
 }
 </script>
+
+<style id="hero-line-wrap-fix">
+/* Keep the Korean object particle attached to 정규수업 and avoid an orphaned 을. */
+.hero-title-primary{word-break:keep-all;overflow-wrap:normal;}
+@media (min-width:521px){
+  .hero-title-primary{white-space:nowrap;letter-spacing:-0.065em;}
+}
+@media (max-width:520px){
+  .hero-title-primary{white-space:normal;word-break:keep-all;overflow-wrap:normal;}
+}
+</style>
 </head>
 <body>
 <div class="topbar"><div class="wrap"><span><b>2027 WINTER SCHOOLING</b> · Vancouver, Canada</span><span class="tb-right"><span>중1~고1</span><span>총 13~14명 소수 정원</span></span></div></div>
@@ -366,7 +377,7 @@ footer b{color:#cad6df}
   <div class="wrap hero-grid">
     <div>
       <div class="eyebrow">EDUSMART · 2027 WINTER SCHOOLING CAMP</div>
-      <h1>캐나다 학교의 정규수업을<br><em>4주 동안 실제로 경험</em></h1>
+      <h1><span class="hero-title-primary">캐나다 학교의 정규수업을</span><br><em>4주 동안 실제로 경험</em></h1>
       <p class="lead">미서부 5일 일정으로 시작해 밴쿠버 Archbishop Carney 정규수업 4주, 홈스테이, 매일 온라인 ESL·MATH, 현지 생활 관리까지 이어지는 5주 겨울 스쿨링입니다. 단순 영어캠프가 아니라 실제 학교생활과 캐나다 생활 적응을 함께 경험하도록 구성되어 있습니다.</p>
       <div class="hero-cta"><a class="btn btn-gold" href="#contact">현재 모집 상담</a><a class="btn btn-ghost" href="#schedule">5주 일정표 보기</a></div>
     </div>
