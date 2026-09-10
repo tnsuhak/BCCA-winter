@@ -1,0 +1,24 @@
+name: Inspect old OG image OCR
+on:
+  push:
+    branches: [feat/carney-kakao-og]
+    paths:
+      - '.github/workflows/inspect-old-og-ocr.yml'
+jobs:
+  inspect:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          ref: feat/carney-kakao-og
+      - name: Install OCR
+        run: |
+          sudo apt-get update -qq
+          sudo apt-get install -y -qq tesseract-ocr tesseract-ocr-kor
+      - name: Read existing OG image
+        shell: bash
+        run: |
+          echo '--- IMAGE ---'
+          file og.jpg
+          echo '--- OCR ENG+KOR ---'
+          tesseract og.jpg stdout --psm 6 -l eng+kor 2>/dev/null || true
