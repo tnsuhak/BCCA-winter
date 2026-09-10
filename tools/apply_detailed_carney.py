@@ -6,6 +6,9 @@ payload = ''.join(
     Path(f'tools/carney_payload/part{i}.txt').read_text(encoding='utf-8').strip()
     for i in range(1, 5)
 )
+# One character was dropped while the first payload chunk was transferred.
+# Restore that exact character before decoding, then validate the final page.
+payload = payload.replace('VK4vl141bZD', 'VK4vlV141bZD', 1)
 html = gzip.decompress(base64.b64decode(payload)).decode('utf-8')
 
 required = [
