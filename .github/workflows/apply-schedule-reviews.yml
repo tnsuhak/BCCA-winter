@@ -1,0 +1,30 @@
+name: Apply schedule visual and reviews
+on:
+  push:
+    branches: [feat/carney-winter-schooling]
+    paths:
+      - tools/apply_schedule_reviews.py
+      - .github/workflows/apply-schedule-reviews.yml
+permissions:
+  contents: write
+jobs:
+  apply:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          ref: feat/carney-winter-schooling
+          fetch-depth: 0
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.x'
+      - name: Apply schedule image and old reviews
+        run: python tools/apply_schedule_reviews.py
+      - name: Commit site changes
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add index.html
+          if git diff --cached --quiet; then echo "No index changes"; exit 0; fi
+          git commit -m "Use visual Carney schedule and restore EduSmart Kakao reviews"
+          git push origin HEAD:feat/carney-winter-schooling
