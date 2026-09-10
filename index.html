@@ -656,7 +656,7 @@ footer b{color:#cad6df}
 <section id="faq">
   <div class="wrap">
     <div class="s-head"><span class="s-num">11 · DETAILED FAQ</span><h2>실제 상담에서 많이 묻는<br>세부 질문 10가지</h2><p>수업 비율부터 홈스테이 배정, 휴대폰, 부모님 연락, 용돈, 알레르기, 학년 배정과 연장까지 정리했습니다.</p></div>
-    <div class="faq-item open"><button class="faq-q" type="button">Q1. 정규수업과 ESL 수업은 어떻게 진행되나요?</button><div class="faq-a">학생의 영어 수준과 적응도를 고려하여 일반적으로 정규수업 70~80% + ESL 20~30% 정도의 비율로 운영할 예정입니다. 실제 수업 비율은 학생의 영어 수준과 학교 상황에 따라 달라질 수 있습니다.</div></div>
+    <div class="faq-item"><button class="faq-q" type="button">Q1. 정규수업과 ESL 수업은 어떻게 진행되나요?</button><div class="faq-a">학생의 영어 수준과 적응도를 고려하여 일반적으로 정규수업 70~80% + ESL 20~30% 정도의 비율로 운영할 예정입니다. 실제 수업 비율은 학생의 영어 수준과 학교 상황에 따라 달라질 수 있습니다.</div></div>
     <div class="faq-item"><button class="faq-q" type="button">Q2. 출국 전에 홈스테이 정보를 받을 수 있나요?</button><div class="faq-a">출국 전에 최종 홈스테이를 확정하는 방식이 아닙니다. 첫 주 미서부 여행을 진행하면서 학생의 성격, 생활 습관, 필요한 부분 등을 파악하고 관리자 선생님과의 친밀도를 형성한 뒤 학생에게 가장 적합한 가정으로 매칭합니다. 미서부 여행 종료 후 최종 홈스테이 프로필을 부모님께 전달할 예정입니다.</div></div>
     <div class="faq-item"><button class="faq-q" type="button">Q3. 홈스테이는 어떤 기준으로 배정되나요?</button><div class="faq-a">홈스테이 선정과 배정은 EduSmart가 직접 관리합니다. 기존 프로그램에서 학생들의 만족도가 높았던 검증된 가정을 중심으로 배정하며 기본적으로 한 가정에 2명, 최대 3명까지 배정합니다. 3명일 경우 2인 1실 + 1인 1실 또는 넓은 방에 3명이 생활하는 형태가 될 수 있습니다. 평일 등·하교 픽업도 기본 포함됩니다.</div></div>
     <div class="faq-item"><button class="faq-q" type="button">Q4. 학교에서 교복을 입나요?</button><div class="faq-a">일반적인 교복 대신 학교 로고가 있는 후드티를 착용할 예정입니다.</div></div>
@@ -719,6 +719,30 @@ document.querySelectorAll('.faq-q').forEach(function(btn){
   figs.forEach(function(f,i){f.addEventListener('click',function(){open(i);});});
   document.getElementById('lbClose').addEventListener('click',close);document.getElementById('lbPrev').addEventListener('click',function(){show(cur-1)});document.getElementById('lbNext').addEventListener('click',function(){show(cur+1)});
   lb.addEventListener('click',function(e){if(e.target===lb)close();});document.addEventListener('keydown',function(e){if(!lb.classList.contains('open'))return;if(e.key==='Escape')close();if(e.key==='ArrowLeft')show(cur-1);if(e.key==='ArrowRight')show(cur+1);});
+})();
+</script>
+<script id="tns-faq-initial-collapse">
+(function(){
+  function collapseFaqInitially(){
+    var faq=document.getElementById('faq');
+    if(!faq) return;
+    faq.querySelectorAll('details[open]').forEach(function(el){el.removeAttribute('open');});
+    faq.querySelectorAll('[aria-expanded="true"]').forEach(function(el){el.setAttribute('aria-expanded','false');});
+    faq.querySelectorAll('[class]').forEach(function(el){
+      var classes=Array.prototype.slice.call(el.classList);
+      var related=/faq|accordion/i.test(classes.join(' ')) || !!el.closest('.faq-item,.faq-row,.accordion-item');
+      if(!related) return;
+      ['open','active','is-open','expanded','show'].forEach(function(c){el.classList.remove(c);});
+    });
+    faq.querySelectorAll('.faq-a,.faq-answer,.faq-content,.accordion-content,.accordion-body').forEach(function(el){
+      el.style.removeProperty('max-height');
+      el.style.removeProperty('height');
+      if(el.style.display==='block') el.style.removeProperty('display');
+    });
+  }
+  function run(){window.requestAnimationFrame(collapseFaqInitially);}
+  if(document.readyState==='loading') document.addEventListener('DOMContentLoaded',run,{once:true});
+  else run();
 })();
 </script>
 </body>
