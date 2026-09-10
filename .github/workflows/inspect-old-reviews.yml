@@ -1,0 +1,21 @@
+name: Inspect old BCCA reviews
+on:
+  push:
+    branches: [feat/carney-winter-schooling]
+    paths:
+      - tools/inspect_old_reviews.py
+      - .github/workflows/inspect-old-reviews.yml
+permissions:
+  contents: read
+jobs:
+  inspect:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          ref: feat/carney-winter-schooling
+          fetch-depth: 0
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.x'
+      - run: python tools/inspect_old_reviews.py
