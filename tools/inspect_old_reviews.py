@@ -1,13 +1,12 @@
 from pathlib import Path
 import subprocess,re
 old=subprocess.check_output(['git','show','a340f21d66506ca74d72e3d9467558961dd6e8f8:index.html'],text=True)
-terms=['후기','카톡','카카오','review','testimonial','학부모']
-for term in terms:
-    print('\n====',term,'====')
-    for m in list(re.finditer(term,old,re.I))[:12]:
-        a=max(0,m.start()-1800); b=min(len(old),m.end()+3500)
-        chunk=old[a:b]
-        # Avoid dumping giant base64 payloads
-        chunk=re.sub(r'data:image/[^;]+;base64,[A-Za-z0-9+/=]{200,}', 'DATA_IMAGE_REDACTED', chunk)
-        print('POS',m.start())
-        print(chunk)
+current=Path('index.html').read_text(encoding='utf-8')
+print('CURRENT SECTIONS:')
+for tag in re.findall(r'<section[^>]*>', current): print(tag)
+print('\nCURRENT SPECIAL MARKERS:')
+for term in ['TNS CONSULTATION','FAQ','실제 학생','상담']:
+    print(term, current.find(term))
+print('\nOLD REVIEWS MARKERS:')
+for term in ['<!-- ===== REVIEWS ===== -->','<section id="reviews">','<div class="lb" id="lb"']:
+    print(term, old.find(term))
